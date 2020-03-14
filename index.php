@@ -33,7 +33,7 @@
             include "view/login.php";
         }
 
-        mysqli_free_result($result);
-        mysqli_close($db);
+        if(isset($result)) mysqli_free_result($result);
+        if(isset($db)) mysqli_close($db);
     ?>
 </html>
