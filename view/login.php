@@ -5,7 +5,58 @@
     <script src="assets/jquery-3.4.1.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        
+        function loginUser() {
+            $('#loginBtn').attr("disabled" , true);
+            var verify = 0;
+
+            $('#useridMsg').hide();
+            $('#pwMsg').hide();
+            $('#loginErr').hide();
+            $('#queryErr').hide();
+            $('#phpErr').hide();
+
+            var userid = $('#userid').val();
+            var password = $('#password').val();
+
+            if(userid == '') {
+                $('#useridMsg').show();
+            }
+
+            if(password == '') {
+                $('#pwMsg').show();
+            }
+
+            if(userid != '' && password != '') {
+                $.ajax({
+                    url: "controller/login.php",
+                    method: "POST",
+                    data: {
+                        id: userid,
+                        password: password
+                    },
+                    success: function(data) {
+                        var result = JSON.parse(data);
+                        if(result.message == "success") {
+                            verify = 1;
+                            window.location.href = "main";
+                        }
+                        else if(result.message == "error") {
+                            $('#loginErr').show();
+                        }
+                        else {
+                            $('#queryErr').show();
+                        }
+                    },
+                    error: function() {
+                        $('#phpErr').show();
+                    }
+                });
+            }
+
+            if(verify == 0) {
+                $('#loginBtn').attr("disabled" , false);
+            }
+        }
     </script>
 </head>
 <body style="background-color: #fff7e8;">
@@ -34,7 +85,7 @@
                                 <p id="phpErr" style="color:#ff0000; display: none;">An error occured. Please try again.</p>
                             </div>
                             <div class="row justify-content-center">
-                                <button type="button" class="btn btn-primary" onclick="loginUser()">Login</button>
+                                <button type="button" id="loginBtn" class="btn btn-primary" onclick="loginUser()">Login</button>
                             </div>
                         </form>
                     </div>
