@@ -1,5 +1,5 @@
 <head>
-    <title>UTS Pemweb | Add Student</title>
+    <title>UTS Pemweb | About</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <script src="../assets/jquery-3.4.1.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
