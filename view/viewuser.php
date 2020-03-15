@@ -43,7 +43,7 @@
             </tbody>
         </table>
         <?php
-            echo "<button class=\"btn btn-primary\" onclick=\"window.location.href = '../edit?id=" . $targetId . "'\">Update</button>";
+            echo "<button class=\"btn btn-primary\" onclick=\"window.location.href = '../edituser?id=" . $targetId . "'\">Update</button>";
         ?>
         <button class="btn btn-secondary" onclick="window.location.href='..'">Return</button>
     </div>
