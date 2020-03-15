@@ -49,7 +49,7 @@
                                 $updateInfo = new Message("unchanged", "No field has been changed.", "none");
                             }
                             else {
-                                if($db->query("UPDATE user SET first_name='$'") === true) {
+                                if($db->query("UPDATE user SET first_name='$fname', last_name='$lname', roleid='$roleid', address='$address' WHERE user_id='$userid'") === true) {
                                     $updateInfo = new Message("success", "User of " . $targetId . " has been updated.", "none");
                                 }
                                 else {
