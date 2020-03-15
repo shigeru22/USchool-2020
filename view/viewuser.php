@@ -27,31 +27,24 @@
         </div>
     </nav>
     <div class="container">
-        <div class="text-right mt-2">
-            <a href="../add"><button class="btn btn-primary">Add Student</button></a>
-        </div>
-        <table class="table mt-2">
-            <thead>
-                <tr>
-                    <th scope="col" width="80">ID</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Role</th>
-                    <th scope="col" width="250">Action</th>
-                </tr>
-            </thead>
+        <h2 class="text-center mt-5">User Details</h2>
+        <table class="table mt-5">
             <tbody>
                 <?php
-                    $result = $db->query("SELECT * FROM user");
+                    $targetId = $_GET["id"];
+                    $result = $db->query("SELECT * FROM user WHERE user_id='$targetId'");
 
-                    while($row = $result->fetch_assoc()){
-                        echo "<tr>";
-                        echo "<td>" . $row["user_id"] . "</td>";
-                        echo "<td>" . $row["first_name"] . " " . $row["last_name"] . "</td>";
-                        echo "<td>" . $roles[$row["role_id"] - 1]->getName() . "</td>";
-                        echo "<td><a href=\"../viewuser?id=" . $row["user_id"] . "\"><button class=\"btn mr-2 text-white\" style=\"background-color: #009900;\">View</button></a><a href=\"../delete?id=" . $row["user_id"] . "\"><button class=\"btn btn-danger\">Delete</button></td></a>";
-                    }
+                    $row = $result->fetch_assoc();
+                    echo "<tr><td width=\"120\">Nama</td><td>" . $row["first_name"] . " " . $row["last_name"] . "</td></tr>";
+                    echo "<tr><td>ID</td><td>" . $row["user_id"] . "</td></tr>";
+                    echo "<tr><td>Role</td><td>" . $roles[$row["role_id"] - 1]->getName() . "</td></tr>";
+                    echo "<tr><td>Address</td><td>" . $row["address"] . "</td></tr>";
                 ?>
             </tbody>
         </table>
+        <?php
+            echo "<button class=\"btn btn-primary\" onclick=\"window.location.href = '../edit?id=" . $targetId . "'\">Update</button>";
+        ?>
+        <button class="btn btn-secondary" onclick="window.location.href='..'">Return</button>
     </div>
 </body>
