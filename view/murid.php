@@ -90,13 +90,17 @@
                     <?php
                         $grade;
                         $i = 0;
-                        while($i < count($grades)) {
-                            if($grades[$i]->getId() == $_SESSION["uschool-id"]) {
-                                echo "<td>" . $grades[$i]->getTugas() . "</td>";
-                                echo "<td>" . $grades[$i]->getUTS() . "</td>";
-                                echo "<td>" . $grades[$i]->getUAS() . "</td>";
+                        foreach($grades as $userGrade) {
+                            if($userGrade->getId() == $_SESSION["uschool-id"]) {
+                                if($userGrade->getTugas() != -1) echo "<td>" . $userGrade->getTugas() . "</td>";
+                                else echo "<td>Ungraded</td>";
+                                if($userGrade->getUTS() != -1) echo "<td>" . $userGrade->getUTS() . "</td>";
+                                else echo "<td>Ungraded</td>";
+                                if($userGrade->getUAS() != -1) echo "<td>" . $userGrade->getUAS() . "</td>";
+                                else echo "<td>Ungraded</td>";
 
-                                $grade = ($grades[$i]->getTugas() + $grades[$i]->getUTS() + $grades[$i]->getUAS()) / 3;
+                                if($userGrade->getTugas() != -1 && $userGrade->getUTS() != -1 && $userGrade->getUAS() != -1) $grade = ($userGrade->getTugas() + $userGrade->getUTS() + $userGrade->getUAS()) / 3;
+                                else $grade = -1;
                                 break;
                             }
                         }
@@ -105,13 +109,14 @@
             </tbody>
         </table>
         <?php
+            if($grade == -1) echo "<p>Belum dinilai. Harap cek jika nilai anda telah dinilai dan tersubmit ke sistem.</p>";
             if($grade >= 80) echo "<p>Grade: A</p>";
             else if($grade >= 65) echo "<p>Grade: B</p>";
             else if($grade >= 45) echo "<p>Grade: C</p>";
-            else echo "<p>Grade: D</p>";
+            else if ($grade != -1) echo "<p>Grade: D</p>";
 
             if($grade >= 45) echo "<p>Dinyatakan: <b>LULUS</b></p>";
-            else echo "<p>Dinyatakan: <b>TIDAK LULUS</b></p>";
+            else if($grade != -1) echo "<p>Dinyatakan: <b>TIDAK LULUS</b></p>";
         ?>
     </div>
 </body>
