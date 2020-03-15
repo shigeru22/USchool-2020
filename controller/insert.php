@@ -28,6 +28,7 @@
                     if($roles[$currUser->getRoleId() - 1]->getName() == "admin") {
                         $userid; $fname; $lname; $roleid; $address; $password;
 
+<<<<<<< HEAD
                         if(isset($_POST["userid"])) $userid = $_POST["userid"];
                         if(isset($_POST["fname"])) $fname = $_POST["fname"];
                         if(isset($_POST["lname"])) $lname = $_POST["lname"];
@@ -36,6 +37,16 @@
                         if(isset($_POST["password"])) $password = $_POST["password"];
 
                         $query = "SELECT * FROM user WHERE user_id='$userid'";
+=======
+                        if(isset($_POST["userid"])) $targetId = $_POST["userid"];
+                        if(isset($_POST["fname"])) $targetId = $_POST["fname"];
+                        if(isset($_POST["lname"])) $targetId = $_POST["lname"];
+                        if(isset($_POST["roleid"])) $targetId = $_POST["roleid"];
+                        if(isset($_POST["address"])) $targetId = $_POST["address"];
+                        if(isset($_POST["password"])) $targetId = $_POST["password"];
+
+                        $query = "SELECT * FROM user WHERE user_id='$targetId'";
+>>>>>>> aed8905420e3e8433b60d7615a70b46491bcd8cf
                         $result = $db->query($query);
 
                         if(mysqli_num_rows($result) != 0) {
