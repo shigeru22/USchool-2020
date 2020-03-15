@@ -31,7 +31,7 @@
                         if(isset($_POST["userid"])) $userid = $_POST["userid"];
                         if(isset($_POST["fname"])) $fname = $_POST["fname"];
                         if(isset($_POST["lname"])) $lname = $_POST["lname"];
-                        if(isset($_POST["roleid"])) $roleid = $_POST["roleid"];
+                        if(isset($_POST["role"])) $roleid = $_POST["role"];
                         if(isset($_POST["address"])) $address = $_POST["address"];
                         if(isset($_POST["password"])) $password = $_POST["password"];
 
@@ -43,8 +43,8 @@
                         }
                         else {
                             $hash = md5($password);
-                            if($db->query("INSERT INTO user (user_id, password, first_name, last_name, role_id, address) VALUES ('$userid', '$hash', '$fname', '$lname', '$roleid', '$address')") === true) {
-                                $insertInfo = new Message("success", "User of " . $targetId . " has been inserted.", "none");
+                            if($db->query("INSERT INTO user (user_id, password, first_name, last_name, role_id, address) VALUES ('$userid', '$hash', '$fname', '$lname', $roleid, '$address')") === true) {
+                                $insertInfo = new Message("success", "User of " . $userid . " has been inserted.", "none");
                             }
                             else {
                                 $insertInfo = new Message("error", "Query error occured.", "none");

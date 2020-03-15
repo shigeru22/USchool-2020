@@ -8,7 +8,7 @@
         function addUser() {
             $('#addBtn').attr("disabled", true);
 
-            var deleted = 0;
+            var inserted = 0;
             $('#useridMsg').hide();
             $('#fnameMsg').hide();
             $('#lnameMsg').hide();
@@ -46,8 +46,9 @@
                     },
                     success: function(data) {
                         var result = JSON.parse(data);
+
                         if(result.message == "success") {
-                            deleted = 1;
+                            inserted = 1;
                             $('#inserted').show();
                             setTimeout(function(){
                                 window.location.href = "..";
@@ -63,7 +64,7 @@
                 });
             }
 
-            if(deleted == 0) $('#addBtn').attr("disabled", false);
+            if(inserted == 0) $('#addBtn').attr("disabled", false);
         }
 
         function logoutUser() {
