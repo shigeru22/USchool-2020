@@ -34,10 +34,9 @@
                         array_push($grades, new Grade($row["user_id"], $row["nilai_tugas"], $row["nilai_uts"], $row["nilai_uas"]));
                     }
 
-                    $i = 0;
-                    while($i < count($roles)) {
-                        if($currUser->getRoleId() == $roles[$i]->getId()) {
-                            include "../view/" . $roles[$i]->getName() . ".php";
+                    foreach($roles as $row) {
+                        if($currUser->getRoleId() == $row->getId()) {
+                            include "../view/" . $row->getName() . ".php";
                             break;
                         }
                     }
