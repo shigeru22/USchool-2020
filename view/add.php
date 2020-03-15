@@ -4,6 +4,68 @@
     <script src="../assets/jquery-3.4.1.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function addUser() {
+            $('#addBtn').attr("disabled", true);
+
+            var deleted = 0;
+            $('#useridMsg').hide();
+            $('#fnameMsg').hide();
+            $('#lnameMsg').hide();
+            $('#roleMsg').hide();
+            $('#addrMsg').hide();
+            $('#pwMsg').hide();
+            $('#queryErr').hide();
+            $('#phpErr').hide();
+
+            var userid = $('#userid').val();
+            var fname = $('#fname').val();
+            var lname = $('#lname').val();
+            var role = $('#role').val();
+            var address = $('#address').val();
+            var password = $('#password').val();
+
+            if(userid == '') $('#useridMsg').show();
+            if(fname == '') $('#fnameMsg').show();
+            if(lname == '') $('#lnameMsg').show();
+            if(role == '') $('#roleMsg').show();
+            if(address == '') $('#addrMsg').show();
+            if(password == '') $('#pwMsg').show();
+
+            if(userid != '' && fname != '' && lname != '' && role != '' && address != '' && password != '') {
+                $.ajax({
+                    url: "../controller/insert.php",
+                    method: "POST",
+                    data: {
+                        userid: userid,
+                        fname: fname,
+                        lname: lname,
+                        role: role,
+                        address: address,
+                        password: password
+                    },
+                    success: function(data) {
+                        var result = JSON.parse(data);
+                        if(result.message == "success") {
+                            deleted = 1;
+                            $('#inserted').show();
+                            setTimeout(function(){
+                                window.location.href = "..";
+                            }, 3000);
+                        }
+                        else if(result.message == "error") {
+                            $('#queryErr').show();
+                        }
+                    },
+                    error: function() {
+                        $('#phpErr').show();
+                    }
+                });
+            }
+
+            if(deleted == 0) $('#addBtn').attr("disabled", false);
+        }
+    </script>
 </head>
 <body style="background-color: #fffcec;">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffe4b3;">
@@ -60,7 +122,7 @@
                         }
                     ?>
                 </select>
-                <small id="roleMsg" style="color:#ff0000; display: none;">Please select an option form this field.</small>
+                <small id="roleMsg" style="color:#ff0000; display: none;">Please select an option from this field.</small>
             </div>
             <div class="form-group">
                 <label for="address">Address</label>
@@ -73,11 +135,11 @@
                 <small id="pwMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
             <div class="text-center">
-                <p id="loginErr" style="color:#ff0000; display: none;">Wrong email or password.</p>
-                <p id="queryErr" style="color:#ff0000; display: none;">Query error. Please ask administrator.</p>
+                <p id="inserted" style="color:#ff0000; display: none;">User inserted. Redirecting to main page.</p>
+                <p id="queryErr" style="color:#ff0000; display: none;">Query error or no permission. Please try again.</p>
                 <p id="phpErr" style="color:#ff0000; display: none;">An error occured. Please try again.</p>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mb-4">
                 <button type="button" id="addBtn" class="btn btn-primary mr-4" onclick="addUser()">Add</button>
                 <button type="button" id="cancelBtn" class="btn btn-danger" onclick="window.location.href = '../main'">Cancel</button>
             </div>
