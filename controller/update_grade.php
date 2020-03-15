@@ -47,7 +47,7 @@
                             }
                             else {
                                 if($db->query("UPDATE grade SET nilai_tugas=$works, nilai_uts=$mid, nilai_uas=$final WHERE user_id='$userid'") === true) {
-                                    $updateInfo = new Message("success", "Grade of user " . $targetId . " has been updated.", "none");
+                                    $updateInfo = new Message("success", "Grade of user " . $userid . " has been updated.", "none");
                                 }
                                 else {
                                     $updateInfo = new Message("error", "Query error occured: " . $db->error, "none");
