@@ -5,41 +5,40 @@
     <script src="../assets/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script>
-        function editUser() {
+        function editGrade() {
             $('#editBtn').attr("disabled", true);
 
             var updated = 0;
             $('#useridMsg').hide();
             $('#fnameMsg').hide();
-            $('#lnameMsg').hide();
-            $('#roleMsg').hide();
-            $('#addrMsg').hide();
+            $('#worksMsg').hide();
+            $('#midtermMsg').hide();
+            $('#finaltermMsg').hide();
             $('#unchangeErr').hide();
             $('#queryErr').hide();
             $('#phpErr').hide();
 
             var userid = $('#userid').val();
             var fname = $('#fname').val();
-            var lname = $('#lname').val();
-            var role = $('#role').val();
-            var address = $('#address').val();
+            var works = $('#works').val();
+            var midterm = $('#midterm').val();
+            var finalterm = $('#finalterm').val();
 
             if(userid == '') $('#useridMsg').show();
             if(fname == '') $('#fnameMsg').show();
-            if(lname == '') $('#lnameMsg').show();
-            if(role == '') $('#roleMsg').show();
-            if(address == '') $('#addrMsg').show();
+            if(works == '') $('#worksMsg').show();
+            if(midterm == '') $('#midtermMsg').show();
+            if(finalterm == '') $('#finaltermMsg').show();
 
-            if(userid != '' && fname != '' && lname != '' && role != '' && address != '') {
+            if(userid != '' && fname != '' && works != '' && midterm != '' && finalterm != '') {
                 $.ajax({
-                    url: "../controller/update_user.php",
+                    url: "../controller/update_grade.php",
                     method: "POST",
                     data: {
                         userid: userid,
-                        fname: fname,
-                        lname: lname,
-                        role: role,
-                        address: address
+                        works: works,
+                        mid: midterm,
+                        final: finalterm
                     },
                     success: function(data) {
                         var result = JSON.parse(data);
@@ -63,7 +62,7 @@
                 });
             }
 
-            if(updated == 0) $('#addBtn').attr("disabled", false);
+            if(updated == 0) $('#editBtn').attr("disabled", false);
         }
     </script>
 </head>
@@ -132,7 +131,7 @@
                 <p id="phpErr" style="color:#ff0000; display: none;">An error occured. Please try again.</p>
             </div>
             <div class="row justify-content-center mb-4">
-                <button type="button" id="editBtn" class="btn btn-primary mr-4" onclick="editUser()">Update</button>
+                <button type="button" id="editBtn" class="btn btn-primary mr-4" onclick="editGrade()">Update</button>
                 <?php
                     echo "<button type=\"button\" id=\"cancelBtn\" class=\"btn btn-danger\" onclick=\"window.location.href = '../viewuser?id=" . $_GET["id"] . "'\">Cancel</button>"
                 ?>
