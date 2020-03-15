@@ -16,29 +16,23 @@
         }
     </style>
     <script>
-        function deleteUser() {
-            var userid = $('#deleteBtn').val();
-
+        function logoutUser() {
             $.ajax({
-                url: "../controller/deleteuser.php",
+                url: "../controller/logout.php",
                 method: "POST",
-                data: {
-                    userid: userid
-                },
+                data: {},
                 success: function(data) {
                     var result = JSON.parse(data);
 
                     if(result.message == "success") {
-                        window.location.href = ".";
+                        window.location.href = "..";
                     }
-                    else if(result.message == "error") {
-                        $('#deleteModal').modal("hide");
-                        $('#delErrModal').modal("show");
+                    else {
+                        alert("Failed to logout. Please clear your browsing data immediately.");
                     }
                 },
                 error: function() {
-                    $('#deleteModal').modal("hide");
-                    $('#delErrModal').modal("show");
+                    alert("Failed to logout. Please clear your browsing data immediately.");
                 }
             });
         }
@@ -59,7 +53,7 @@
                         ?>
                     </span>
                     <li class="nav-item">
-                        <button class="btn btn-danger">Logout</button>
+                        <button class="btn btn-danger" onclick="logoutUser()">Logout</button>
                     </li>
                 </ul>
             </div>

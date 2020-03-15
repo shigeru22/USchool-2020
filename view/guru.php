@@ -5,6 +5,28 @@
     <script src="../assets/js/bootstrap.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function logoutUser() {
+            $.ajax({
+                url: "../controller/logout.php",
+                method: "POST",
+                data: {},
+                success: function(data) {
+                    var result = JSON.parse(data);
+
+                    if(result.message == "success") {
+                        window.location.href = "..";
+                    }
+                    else {
+                        alert("Failed to logout. Please clear your browsing data immediately.");
+                    }
+                },
+                error: function() {
+                    alert("Failed to logout. Please clear your browsing data immediately.");
+                }
+            });
+        }
+    </script>
 </head>
 <body style="background-color: #fffcec;">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffe4b3;">
@@ -21,7 +43,7 @@
                         ?>
                     </span>
                     <li class="nav-item">
-                        <button class="btn btn-danger">Logout</button>
+                        <button class="btn btn-danger" onclick="logoutUser()">Logout</button>
                     </li>
                 </ul>
             </div>
