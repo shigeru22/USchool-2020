@@ -149,7 +149,7 @@
                 <small id="finaltermMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
             <div class="text-center">
-                <p id="updated" style="color:#ff0000; display: none;">User updated. Redirecting to main page.</p>
+                <p id="updated" style="color:#ff0000; display: none;">Grade updated. Redirecting to main page.</p>
                 <p id="unchangeErr" style="color: #ff0000; display: none;">Nothing changed.</p>
                 <p id="queryErr" style="color:#ff0000; display: none;">Query error or no permission. Please try again.</p>
                 <p id="phpErr" style="color:#ff0000; display: none;">An error occured. Please try again.</p>
