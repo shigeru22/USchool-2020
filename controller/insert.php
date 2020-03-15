@@ -44,7 +44,15 @@
                         else {
                             $hash = md5($password);
                             if($db->query("INSERT INTO user (user_id, password, first_name, last_name, role_id, address) VALUES ('$userid', '$hash', '$fname', '$lname', $roleid, '$address')") === true) {
-                                $insertInfo = new Message("success", "User of " . $userid . " has been inserted.", "none");
+                                // if student is inserted
+                                if($roles[$roleid - 1]->getName() == "murid") {
+                                    if($db->query("INSERT INTO grade (user_id, nilai_tugas, nilai_uts, nilai_uas) VALUES ('$userid', -1, -1, -1)") === true) {
+                                        $insertInfo = new Message("success", "User of " . $userid . " as student has been inserted.", "none");
+                                    }
+                                }
+                                else {
+                                    $insertInfo = new Message("success", "User of " . $userid . " has been inserted, with error on inserting student: " . $db->error, "none");
+                                }
                             }
                             else {
                                 $insertInfo = new Message("error", "Query error occured: " . $db->error, "none");
