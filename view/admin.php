@@ -10,7 +10,7 @@
             var userid = $('#deleteBtn').val();
 
             $.ajax({
-                url: "../controller/deleteuser.php",
+                url: "../controller/delete.php",
                 method: "POST",
                 data: {
                     userid: userid
