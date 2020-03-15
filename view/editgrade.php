@@ -127,21 +127,24 @@
             <div class="form-group">
                 <label for="works">Nilai Tugas</label>
                 <?php
-                    echo "<input type=\"text\" value=\"" . $grade->getTugas() . "\" class=\"form-control\" id=\"works\">";
+                    if($grade->getTugas() != -1) echo "<input type=\"text\" value=\"" . $grade->getTugas() . "\" class=\"form-control\" id=\"works\">";
+                    else echo "<input type=\"text\" class=\"form-control\" id=\"works\">";
                 ?>
                 <small id="worksMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
             <div class="form-group">
                 <label for="midterm">Nilai UTS</label>
                 <?php
-                    echo "<input type=\"text\" value=\"" . $grade->getUTS() . "\" class=\"form-control\" id=\"midterm\">";
+                    if($grade->getUTS() != -1) echo "<input type=\"text\" value=\"" . $grade->getUTS() . "\" class=\"form-control\" id=\"midterm\">";
+                    else echo "<input type=\"text\" class=\"form-control\" id=\"midterm\">";
                 ?>
                 <small id="midtermMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
             <div class="form-group">
                 <label for="finalterm">Nilai UAS</label>
                 <?php
-                    echo "<input type=\"text\" value=\"" . $grade->getUAS() . "\" class=\"form-control\" id=\"finalterm\">";
+                    if($grade->getUAS() != -1) echo "<input type=\"text\" value=\"" . $grade->getUAS() . "\" class=\"form-control\" id=\"finalterm\">";
+                    else echo "<input type=\"text\" class=\"form-control\" id=\"finalterm\">";
                 ?>
                 <small id="finaltermMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
@@ -154,7 +157,7 @@
             <div class="row justify-content-center mb-4">
                 <button type="button" id="editBtn" class="btn btn-primary mr-4" onclick="editGrade()">Update</button>
                 <?php
-                    echo "<button type=\"button\" id=\"cancelBtn\" class=\"btn btn-danger\" onclick=\"window.location.href = '../viewuser?id=" . $_GET["id"] . "'\">Cancel</button>"
+                    echo "<button type=\"button\" id=\"cancelBtn\" class=\"btn btn-danger\" onclick=\"window.location.href = '..'\">Cancel</button>"
                 ?>
             </div>
         </form>
