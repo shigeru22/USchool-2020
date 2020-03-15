@@ -27,7 +27,13 @@
                         array_push($roles, new Role($row["role_id"], $row["role_name"], $row["role_desc"]));
                     }
 
-                    if($roles[$currUser->getRoleId() - 1]->getName() == "admin") include "../view/viewuser.php";
+                    if($roles[$currUser->getRoleId() - 1]->getName() == "admin") {
+                        $targetId = $_GET["id"];
+                        $result = $db->query("SELECT * FROM user WHERE user_id='$targetId'");
+
+                        if(mysqli_num_rows($result) == 1) include "../view/viewuser.php";
+                        else include "../view/usernotfound.php";
+                    }
                     else include "../view/permissionerror.php";
                 }
                 else {

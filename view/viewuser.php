@@ -31,9 +31,6 @@
         <table class="table mt-5">
             <tbody>
                 <?php
-                    $targetId = $_GET["id"];
-                    $result = $db->query("SELECT * FROM user WHERE user_id='$targetId'");
-
                     $row = $result->fetch_assoc();
                     echo "<tr><td width=\"120\">Nama</td><td>" . $row["first_name"] . " " . $row["last_name"] . "</td></tr>";
                     echo "<tr><td>ID</td><td>" . $row["user_id"] . "</td></tr>";
