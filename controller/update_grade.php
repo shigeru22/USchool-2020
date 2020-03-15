@@ -25,7 +25,7 @@
                         array_push($roles, new Role($row["role_id"], $row["role_name"], $row["role_desc"]));
                     }
 
-                    if($roles[$currUser->getRoleId() - 1]->getName() == "admin") {
+                    if($roles[$currUser->getRoleId() - 1]->getName() == "guru") {
                         $userid; $works; $mid; $final;
 
                         if(isset($_POST["userid"])) $userid = $_POST["userid"];
