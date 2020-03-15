@@ -42,6 +42,9 @@
                             echo "Welcome, " . $currUser->getFName();
                         ?>
                     </span>
+                    <li class="nav-item mr-2">
+                        <button class="btn btn-secondary" onclick="window.location.href = '../about'">About</button>
+                    </li>
                     <li class="nav-item">
                         <button class="btn btn-danger" onclick="logoutUser()">Logout</button>
                     </li>
