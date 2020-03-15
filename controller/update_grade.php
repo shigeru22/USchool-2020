@@ -50,7 +50,7 @@
                                     $updateInfo = new Message("success", "Grade of user " . $targetId . " has been updated.", "none");
                                 }
                                 else {
-                                    $updateInfo = new Message("error", "Query error occured.", "none");
+                                    $updateInfo = new Message("error", "Query error occured: " . $db->error, "none");
                                 }
                             }
                         }

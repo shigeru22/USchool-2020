@@ -41,7 +41,7 @@
                                 $delInfo = new Message("success", "User of " . $targetId . " has been deleted.", "none");
                             }
                             else {
-                                $delInfo = new Message("error", "Query error occured.", "none");
+                                $delInfo = new Message("error", "Query error occured: " . $db->error, "none");
                             }
                         }
                     }

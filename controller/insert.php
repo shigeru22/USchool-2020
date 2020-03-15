@@ -47,7 +47,7 @@
                                 $insertInfo = new Message("success", "User of " . $userid . " has been inserted.", "none");
                             }
                             else {
-                                $insertInfo = new Message("error", "Query error occured.", "none");
+                                $insertInfo = new Message("error", "Query error occured: " . $db->error, "none");
                             }
                         }
                     }
