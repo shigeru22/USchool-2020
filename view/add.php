@@ -1,8 +1,8 @@
 <head>
     <title>UTS Pemweb | Add Student</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/jquery-3.4.1.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="background-color: #fffcec;">

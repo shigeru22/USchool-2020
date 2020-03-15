@@ -1,8 +1,8 @@
 <head>
     <title>UTS Pemweb | Main</title>
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-    <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/jquery-3.4.1.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body style="background-color: #fffcec;">
@@ -48,7 +48,7 @@
                         echo "<td>" . $row["user_id"] . "</td>";
                         echo "<td>" . $row["first_name"] . " " . $row["last_name"] . "</td>";
                         echo "<td>" . $roles[$row["role_id"] - 1]->getName() . "</td>";
-                        echo "<td><a href=\"../viewuser?id=" . $row["user_id"] . "\"><button class=\"btn mr-2 text-white\" style=\"background-color: #009900;\">View</button></a><a href=\"../delete?id=" . $row["user_id"] . "\"><button class=\"btn btn-danger\">Delete</button></td></a>";
+                        echo "<td><a href=\"../viewuser?id=" . $row["user_id"] . "\"><button class=\"btn mr-2 text-white\" style=\"background-color: #009900;\">View</button></a><a href=\"../delete?id=" . $row["user_id"] . "\"><button class=\"btn btn-danger\">Delete</button></a></td>";
                     }
                 ?>
             </tbody>
