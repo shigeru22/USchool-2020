@@ -31,7 +31,7 @@
                         if(isset($_POST["userid"])) $userid = $_POST["userid"];
                         if(isset($_POST["fname"])) $fname = $_POST["fname"];
                         if(isset($_POST["lname"])) $lname = $_POST["lname"];
-                        if(isset($_POST["roleid"])) $roleid = $_POST["roleid"];
+                        if(isset($_POST["role"])) $roleid = $_POST["role"];
                         if(isset($_POST["address"])) $address = $_POST["address"];
 
                         $query = "SELECT * FROM user WHERE user_id='$userid'";
@@ -49,11 +49,11 @@
                                 $updateInfo = new Message("unchanged", "No field has been changed.", "none");
                             }
                             else {
-                                if($db->query("UPDATE user SET first_name='$fname', last_name='$lname', roleid='$roleid', address='$address' WHERE user_id='$userid'") === true) {
-                                    $updateInfo = new Message("success", "User of " . $targetId . " has been updated.", "none");
+                                if($db->query("UPDATE user SET first_name='$fname', last_name='$lname', role_id=$roleid, address='$address' WHERE user_id='$userid'") === true) {
+                                    $updateInfo = new Message("success", "User of " . $userid . " has been updated.", "none");
                                 }
                                 else {
-                                    $updateInfo = new Message("error", "Query error occured.", "none");
+                                    $updateInfo = new Message("error", "Query error occured: " . $db->error, "none");
                                 }
                             }
                         }
