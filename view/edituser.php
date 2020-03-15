@@ -4,6 +4,68 @@
     <script src="../assets/jquery-3.4.1.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function editUser() {
+            $('#editBtn').attr("disabled", true);
+
+            var updated = 0;
+            $('#useridMsg').hide();
+            $('#fnameMsg').hide();
+            $('#lnameMsg').hide();
+            $('#roleMsg').hide();
+            $('#addrMsg').hide();
+            $('#unchangeErr').hide();
+            $('#queryErr').hide();
+            $('#phpErr').hide();
+
+            var userid = $('#userid').val();
+            var fname = $('#fname').val();
+            var lname = $('#lname').val();
+            var role = $('#role').val();
+            var address = $('#address').val();
+
+            if(userid == '') $('#useridMsg').show();
+            if(fname == '') $('#fnameMsg').show();
+            if(lname == '') $('#lnameMsg').show();
+            if(role == '') $('#roleMsg').show();
+            if(address == '') $('#addrMsg').show();
+
+            if(userid != '' && fname != '' && lname != '' && role != '' && address != '') {
+                $.ajax({
+                    url: "../controller/update_user.php",
+                    method: "POST",
+                    data: {
+                        userid: userid,
+                        fname: fname,
+                        lname: lname,
+                        role: role,
+                        address: address
+                    },
+                    success: function(data) {
+                        var result = JSON.parse(data);
+                        if(result.message == "success") {
+                            updated = 1;
+                            $('#updated').show();
+                            setTimeout(function(){
+                                window.location.href = "..";
+                            }, 3000);
+                        }
+                        else if(result.message == "unchanged") {
+                            $('#unchangeErr').show();
+                        }
+                        else if(result.message == "error") {
+                            $('#queryErr').show();
+                        }
+                    },
+                    error: function() {
+                        $('#phpErr').show();
+                    }
+                });
+            }
+
+            if(updated == 0) $('#addBtn').attr("disabled", false);
+        }
+    </script>
 </head>
 <body style="background-color: #fffcec;">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffe4b3;">
@@ -77,11 +139,12 @@
                 <small id="pwMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
             <div class="text-center">
-                <p id="loginErr" style="color:#ff0000; display: none;">Wrong email or password.</p>
-                <p id="queryErr" style="color:#ff0000; display: none;">Query error. Please ask administrator.</p>
+                <p id="updated" style="color:#ff0000; display: none;">User updated. Redirecting to main page.</p>
+                <p id="unchangeErr" style="color: #ff0000; display: none;">Nothing changed.</p>
+                <p id="queryErr" style="color:#ff0000; display: none;">Query error or no permission. Please try again.</p>
                 <p id="phpErr" style="color:#ff0000; display: none;">An error occured. Please try again.</p>
             </div>
-            <div class="row justify-content-center">
+            <div class="row justify-content-center mb-4">
                 <button type="button" id="editBtn" class="btn btn-primary mr-4" onclick="editUser()">Update</button>
                 <?php
                     echo "<button type=\"button\" id=\"cancelBtn\" class=\"btn btn-danger\" onclick=\"window.location.href = '../viewuser?id=" . $_GET["id"] . "'\">Cancel</button>"
