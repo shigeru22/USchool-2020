@@ -3,7 +3,14 @@
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
     <script src="../assets/jquery-3.4.1.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function deleteUser() {
+            var userid = $('#deleteBtn').val();
+            console.log(userid);
+        }
+    </script>
 </head>
 <body style="background-color: #fffcec;">
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #ffe4b3;">
@@ -48,10 +55,34 @@
                         echo "<td>" . $row["user_id"] . "</td>";
                         echo "<td>" . $row["first_name"] . " " . $row["last_name"] . "</td>";
                         echo "<td>" . $roles[$row["role_id"] - 1]->getName() . "</td>";
-                        echo "<td><a href=\"../viewuser?id=" . $row["user_id"] . "\"><button class=\"btn mr-2 text-white\" style=\"background-color: #009900;\">View</button></a><a href=\"../delete?id=" . $row["user_id"] . "\"><button class=\"btn btn-danger\">Delete</button></a></td>";
+                        echo "<td><a href=\"../viewuser?id=" . $row["user_id"] . "\"><button class=\"btn mr-2 text-white\" style=\"background-color: #009900;\">View</button></a><button class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#deleteModal\" data-selectedbtn=\"". $row["user_id"] . "\">Delete</button></td>";
                     }
                 ?>
             </tbody>
         </table>
     </div>
+
+    <!-- delete user confimation modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <i class="material-icons" style="font-size: 96px; color: #ff0000;">delete</i>
+                    <h3 class="mt-2">Are you sure to delete this user?</h3>
+                    <div class="mt-4">
+                        <button id="deleteBtn" type="button" class="btn btn-danger mr-2" onclick="deleteUser()">Delete</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- script to change target userid value -->
+    <script>
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var recipient = button.data('selectedbtn');
+            $(this).find('#deleteBtn').val(recipient);
+        });
+    </script>
 </body>
