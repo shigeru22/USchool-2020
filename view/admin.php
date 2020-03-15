@@ -8,7 +8,29 @@
     <script>
         function deleteUser() {
             var userid = $('#deleteBtn').val();
-            console.log(userid);
+
+            $.ajax({
+                url: "../controller/deleteuser.php",
+                method: "POST",
+                data: {
+                    userid: userid
+                },
+                success: function(data) {
+                    var result = JSON.parse(data);
+
+                    if(result.message == "success") {
+                        window.location.href = ".";
+                    }
+                    else if(result.message == "error") {
+                        $('#deleteModal').modal("hide");
+                        $('#delErrModal').modal("show");
+                    }
+                },
+                error: function() {
+                    $('#deleteModal').modal("hide");
+                    $('#delErrModal').modal("show");
+                }
+            });
         }
     </script>
 </head>
@@ -60,6 +82,22 @@
                 ?>
             </tbody>
         </table>
+    </div>
+
+    <!-- user error modal -->
+    <div class="modal fade" id="delErrModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <i class="material-icons" style="font-size: 96px;">error</i>
+                    <h3 class="mt-2">This user can't be deleted.</h3>
+                    <small>Possible causes: Logged in user, no permission, or query error</small>
+                    <div class="mt-4">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- delete user confimation modal -->
