@@ -26,12 +26,13 @@
                     }
 
                     if($roles[$currUser->getRoleId() - 1]->getName() == "admin") {
-                        $userid; $fname; $lname; $roleid; $address;
+                        $userid; $fname; $lname; $roleid; $currrole; $address;
 
                         if(isset($_POST["userid"])) $userid = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["fname"])) $fname = filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["lname"])) $lname = filter_input(INPUT_POST, 'lname', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["role"])) $roleid = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_ENCODED);
+                        if(isset($_POST["currentrole"])) $currrole = filter_input(INPUT_POST, 'currentrole', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["address"])) $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS);
 
                         $query = "SELECT * FROM user WHERE user_id='$userid'";
@@ -50,7 +51,23 @@
                             }
                             else {
                                 if($db->query("UPDATE user SET first_name='$fname', last_name='$lname', role_id=$roleid, address='$address' WHERE user_id='$userid'") === true) {
-                                    $updateInfo = new Message("success", "User of " . $userid . " has been updated.", "none");
+                                    if($currrole == 1 && $role == 2) { // changed from "guru" to "murid"
+                                        $result = $db->query("SELECT * FROM grade WHERE user_id='$userid'");
+                                        if(mysqli_num_rows($result) == 0) {
+                                            if($db->query("INSERT INTO grade (user_id, nilai_tugas, nilai_uts, nilai_uas) VALUES ('$userid', -1, -1, -1)") === true) {
+                                                $updateInfo = new Message("success", "User of " . $userid . " has been updated and switched to 'murid', and inserted an entry to grade table.", "none");
+                                            }
+                                            else {
+                                                $updateInfo = new Message("success", "User of " . $userid . " updated and switched to 'murid', but failed to insert an entry to grade table.", "none");
+                                            }
+                                        }
+                                        else {
+                                            $updateInfo = new Message("success", "User of " . $userid . " has been updated and switched to 'murid'.", "none");
+                                        }
+                                    }
+                                    else {
+                                        $updateInfo = new Message("success", "User of " . $userid . " has been updated.", "none");
+                                    }
                                 }
                                 else {
                                     $updateInfo = new Message("error", "Query error occured: " . $db->error, "none");

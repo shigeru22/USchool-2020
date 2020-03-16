@@ -22,6 +22,7 @@
             var fname = $('#fname').val();
             var lname = $('#lname').val();
             var role = $('#role').val();
+            var currentrole = $('#currentrole').val();
             var address = $('#address').val();
 
             if(userid == '') $('#useridMsg').show();
@@ -39,6 +40,7 @@
                         fname: fname,
                         lname: lname,
                         role: role,
+                        currentrole: currentrole,
                         address: address
                     },
                     success: function(data) {
@@ -158,6 +160,11 @@
                     }
                 ?>
                 <small id="roleMsg" style="color:#ff0000; display: none;">Please select an option form this field.</small>
+            </div>
+            <div class="form-group">
+                <?php
+                    echo "<input type=\"hidden\" value=\"" . $targetUser["role_id"] . ""\" class=\"form-control\" id=\"currentrole\">";
+                ?>
             </div>
             <div class="form-group">
                 <label for="address">Address</label>
