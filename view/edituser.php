@@ -117,7 +117,7 @@
             <div class="form-group">
                 <label for="userid">User ID</label>
                 <?php
-                    echo "<input type=\"text\" value=\"" . filter_input(INPUT_GET, 'id', FILTER_SANITIZE_ENCODED); . "\" class=\"form-control\" id=\"userid\" disabled>";
+                    echo "<input type=\"text\" value=\"" . filter_input(INPUT_GET, 'id', FILTER_SANITIZE_ENCODED) . "\" class=\"form-control\" id=\"userid\" disabled>";
                 ?>
                 <small id="useridMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
@@ -139,17 +139,24 @@
             </div>
             <div class="form-group">
                 <label for="role">Role</label>
-                <select class="form-control" id="role">
-                    <option value="">Please select...</option>
-                    <?php
+                <?php
+                    if($roles[$targetUser["role_id"] - 1]->getName() == "admin") {
+                        echo "<select class=\"form-control\" id=\"role\" disabled>";
+                        echo "<option value=\"1\" selected>admin</option>";
+                        echo "</select>";
+                    }
+                    else {
+                        echo "<select class=\"form-control\" id=\"role\">";
+                        echo "<option value=\"\">Please select...</option>";
                         foreach($roles as $row) {
                             if($row->getName() != "admin") {
                                 if($row->getId() == $targetUser["role_id"]) echo "<option value=\"" . $row->getId() . "\" selected>" . $row->getName() . "</option>";
                                 else echo "<option value=\"" . $row->getId() . "\">" . $row->getName() . "</option>";
                             }
                         }
-                    ?>
-                </select>
+                        echo "</select>";
+                    }
+                ?>
                 <small id="roleMsg" style="color:#ff0000; display: none;">Please select an option form this field.</small>
             </div>
             <div class="form-group">
@@ -173,7 +180,7 @@
             <div class="row justify-content-center mb-4">
                 <button type="button" id="editBtn" class="btn btn-primary mr-4" onclick="editUser()">Update</button>
                 <?php
-                    echo "<button type=\"button\" id=\"cancelBtn\" class=\"btn btn-danger\" onclick=\"window.location.href = '../viewuser?id=" . filter_input(INPUT_GET, 'id', FILTER_SANITIZE_ENCODED); . "'\">Cancel</button>"
+                    echo "<button type=\"button\" id=\"cancelBtn\" class=\"btn btn-danger\" onclick=\"window.location.href = '../viewuser?id=" . filter_input(INPUT_GET, 'id', FILTER_SANITIZE_ENCODED) . "'\">Cancel</button>"
                 ?>
             </div>
         </form>
