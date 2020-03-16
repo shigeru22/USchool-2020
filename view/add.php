@@ -143,7 +143,7 @@
                     <option value="">Please select...</option>
                     <?php
                         foreach($roles as $row) {
-                            echo "<option value=\"" . $row->getId() . "\">" . $row->getName() . "</option>";
+                            if($row->getName() != "admin") echo "<option value=\"" . $row->getId() . "\">" . $row->getName() . "</option>";
                         }
                     ?>
                 </select>

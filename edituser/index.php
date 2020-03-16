@@ -30,6 +30,7 @@
                     if($roles[$currUser->getRoleId() - 1]->getName() == "admin") {
                         $targetId = $_GET["id"];
                         $result = $db->query("SELECT * FROM user WHERE user_id='$targetId'");
+                        $targetUser = $result->fetch_assoc();
 
                         if(mysqli_num_rows($result) == 1) include "../view/edituser.php";
                         else include "../view/usernotfound.php";

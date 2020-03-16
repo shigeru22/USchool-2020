@@ -125,14 +125,14 @@
                 <div class="col form-group">
                     <label for="fname">Nama depan</label>
                     <?php
-                        echo "<input type=\"text\" value=\"" . $currUser->getFName() . "\" class=\"form-control\" id=\"fname\">";
+                        echo "<input type=\"text\" value=\"" . $targetUser["first_name"] . "\" class=\"form-control\" id=\"fname\">";
                     ?>
                     <small id="fnameMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
                 </div>
                 <div class="col form-group">
                     <label for="lname">Nama belakang</label>
                     <?php
-                        echo "<input type=\"text\" value=\"" . $currUser->getLName() . "\" class=\"form-control\" id=\"lname\">";
+                        echo "<input type=\"text\" value=\"" . $targetUser["last_name"] . "\" class=\"form-control\" id=\"lname\">";
                     ?>
                     <small id="lnameMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
                 </div>
@@ -143,8 +143,10 @@
                     <option value="">Please select...</option>
                     <?php
                         foreach($roles as $row) {
-                            if($row->getId() == $currUser->getRoleId()) echo "<option value=\"" . $row->getId() . "\" selected>" . $row->getName() . "</option>";
-                            else echo "<option value=\"" . $row->getId() . "\">" . $row->getName() . "</option>";
+                            if($row->getName() != "admin") {
+                                if($row->getId() == $targetUser["role_id"]) echo "<option value=\"" . $row->getId() . "\" selected>" . $row->getName() . "</option>";
+                                else echo "<option value=\"" . $row->getId() . "\">" . $row->getName() . "</option>";
+                            }
                         }
                     ?>
                 </select>
@@ -153,7 +155,7 @@
             <div class="form-group">
                 <label for="address">Address</label>
                 <?php
-                    echo "<input type=\"text\" value=\"" . $currUser->getAddress() . "\" class=\"form-control\" id=\"address\">";
+                    echo "<input type=\"text\" value=\"" . $targetUser["address"] . "\" class=\"form-control\" id=\"address\">";
                 ?>
                 <small id="addrMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
