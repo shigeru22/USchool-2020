@@ -81,7 +81,7 @@
     </nav>
     <div class="container">
         <div class="text-right mt-2">
-            <a href="../add"><button class="btn btn-primary">Add Student</button></a>
+            <a href="../add"><button class="btn btn-primary">Add User</button></a>
         </div>
         <table class="table mt-2">
             <thead>
