@@ -26,13 +26,14 @@
                     }
 
                     if($roles[$currUser->getRoleId() - 1]->getName() == "admin") {
-                        $userid; $fname; $lname; $roleid; $currrole; $address;
+                        $userid; $fname; $lname; $roleid; $currrole; $password; $address;
 
                         if(isset($_POST["userid"])) $userid = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["fname"])) $fname = filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["lname"])) $lname = filter_input(INPUT_POST, 'lname', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["role"])) $roleid = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["currentrole"])) $currrole = filter_input(INPUT_POST, 'currentrole', FILTER_SANITIZE_ENCODED);
+                        if(isset($_POST["password"])) $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["address"])) $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS);
 
                         $query = "SELECT * FROM user WHERE user_id='$userid'";
@@ -44,13 +45,18 @@
                         else {
                             $queriedUser = $result->fetch_assoc();
                             $targetUser = new User($queriedUser["user_id"], $queriedUser["first_name"], $queriedUser["last_name"], $queriedUser["role_id"], $queriedUser["address"]);
+                            $hash = md5($password);
+                            $currHash = $queriedUser["password"];
                             unset($queriedUser);
 
-                            if($targetUser->getFName() == $fname && $targetUser->getLName() == $lname && $targetUser->getRoleId() == $roleid && $targetUser->getAddress() == $address) {
+                            if($targetUser->getFName() == $fname && $targetUser->getLName() == $lname && $targetUser->getRoleId() == $roleid && $targetUser->getAddress() == $address && ($password == '' || $hash == $currHash)) {
                                 $updateInfo = new Message("unchanged", "No field has been changed.", "none");
                             }
                             else {
-                                if($db->query("UPDATE user SET first_name='$fname', last_name='$lname', role_id=$roleid, address='$address' WHERE user_id='$userid'") === true) {
+                                if($password == '') $query = "UPDATE user SET first_name='$fname', last_name='$lname', role_id=$roleid, address='$address' WHERE user_id='$userid'";
+                                else $query = "UPDATE user SET password='$hash', first_name='$fname', last_name='$lname', role_id=$roleid, address='$address' WHERE user_id='$userid'";
+
+                                if($db->query() === true) {
                                     if($currrole == 1 && $role == 2) { // changed from "guru" to "murid"
                                         $result = $db->query("SELECT * FROM grade WHERE user_id='$userid'");
                                         if(mysqli_num_rows($result) == 0) {

@@ -163,7 +163,7 @@
             </div>
             <div class="form-group">
                 <?php
-                    echo "<input type=\"hidden\" value=\"" . $targetUser["role_id"] . ""\" class=\"form-control\" id=\"currentrole\">";
+                    echo "<input type=\"hidden\" value=\"" . $targetUser["role_id"] . "\" class=\"form-control\" id=\"currentrole\">";
                 ?>
             </div>
             <div class="form-group">
@@ -175,7 +175,7 @@
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="text" value="(Same password)" class="form-control" id="password" disabled>
+                <input type="password" placeholder="(Same password)" class="form-control" id="password">
                 <small id="pwMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
             <div class="text-center">
