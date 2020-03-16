@@ -117,7 +117,7 @@
             <div class="form-group">
                 <label for="userid">User ID</label>
                 <?php
-                    echo "<input type=\"text\" value=\"" . $_GET["id"] . "\" class=\"form-control\" id=\"userid\" disabled>";
+                    echo "<input type=\"text\" value=\"" . filter_input(INPUT_GET, 'id', FILTER_SANITIZE_ENCODED); . "\" class=\"form-control\" id=\"userid\" disabled>";
                 ?>
                 <small id="useridMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
@@ -173,7 +173,7 @@
             <div class="row justify-content-center mb-4">
                 <button type="button" id="editBtn" class="btn btn-primary mr-4" onclick="editUser()">Update</button>
                 <?php
-                    echo "<button type=\"button\" id=\"cancelBtn\" class=\"btn btn-danger\" onclick=\"window.location.href = '../viewuser?id=" . $_GET["id"] . "'\">Cancel</button>"
+                    echo "<button type=\"button\" id=\"cancelBtn\" class=\"btn btn-danger\" onclick=\"window.location.href = '../viewuser?id=" . filter_input(INPUT_GET, 'id', FILTER_SANITIZE_ENCODED); . "'\">Cancel</button>"
                 ?>
             </div>
         </form>

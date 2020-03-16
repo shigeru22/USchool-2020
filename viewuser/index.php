@@ -28,7 +28,7 @@
                     }
 
                     if($roles[$currUser->getRoleId() - 1]->getName() == "admin") {
-                        $targetId = $_GET["id"];
+                        $targetId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_ENCODED);
                         $result = $db->query("SELECT * FROM user WHERE user_id='$targetId'");
 
                         if(mysqli_num_rows($result) == 1) include "../view/viewuser.php";

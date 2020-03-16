@@ -29,14 +29,14 @@
                     }
 
                     if($roles[$currUser->getRoleId() - 1]->getName() == "guru") {
-                        $targetId = $_GET["id"];
+                        $targetId = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_ENCODED);
                         $result = $db->query("SELECT * FROM grade WHERE user_id='$targetId'");
 
                         if(mysqli_num_rows($result) == 1) {
                             $gradeQuery = $result->fetch_assoc();
                             $grade = new Grade($gradeQuery["user_id"], $gradeQuery["nilai_tugas"], $gradeQuery["nilai_uts"], $gradeQuery["nilai_uas"]);
                             unset($gradeQuery);
-                            
+
                             $result = $db->query("SELECT * FROM user WHERE user_id='$targetId'");
                             $userQuery = $result->fetch_assoc();
                             $user = new User($userQuery["user_id"], $userQuery["first_name"], $userQuery["last_name"], $userQuery["role_id"], $userQuery["address"]);

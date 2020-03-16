@@ -123,7 +123,7 @@
             <div class="form-group">
                 <label for="userid">User ID</label>
                 <?php
-                    echo "<input type=\"text\" value=\"" . $_GET["id"] . "\" class=\"form-control\" id=\"userid\" disabled>";
+                    echo "<input type=\"text\" value=\"" . filter_input(INPUT_POST, 'id', FILTER_SANITIZE_ENCODED); . "\" class=\"form-control\" id=\"userid\" disabled>";
                 ?>
                 <small id="useridMsg" style="color:#ff0000; display: none;">Please enter this field.</small>
             </div>
