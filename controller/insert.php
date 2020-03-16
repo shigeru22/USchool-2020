@@ -32,7 +32,7 @@
                         if(isset($_POST["fname"])) $fname = filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["lname"])) $lname = filter_input(INPUT_POST, 'lname', FILTER_SANITIZE_ENCODED);
                         if(isset($_POST["role"])) $roleid = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_ENCODED);
-                        if(isset($_POST["address"])) $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_ENCODED);
+                        if(isset($_POST["address"])) $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_SPECIAL_CHARS);
                         if(isset($_POST["password"])) $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
 
                         $query = "SELECT * FROM user WHERE user_id='$userid'";
