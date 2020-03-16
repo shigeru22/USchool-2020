@@ -28,7 +28,7 @@
                     if($roles[$currUser->getRoleId() - 1]->getName() == "admin") {
                         $targetId;
 
-                        if(isset($_POST["userid"])) $targetId = $_POST["userid"];
+                        if(isset($_POST["userid"])) $targetId = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_ENCODED);;
 
                         $query = "SELECT * FROM user WHERE user_id='$targetId'";
                         $result = $db->query($query);
