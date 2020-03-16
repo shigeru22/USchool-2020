@@ -28,11 +28,11 @@
                     if($roles[$currUser->getRoleId() - 1]->getName() == "admin") {
                         $userid; $fname; $lname; $roleid; $address;
 
-                        if(isset($_POST["userid"])) $userid = $_POST["userid"];
-                        if(isset($_POST["fname"])) $fname = $_POST["fname"];
-                        if(isset($_POST["lname"])) $lname = $_POST["lname"];
-                        if(isset($_POST["role"])) $roleid = $_POST["role"];
-                        if(isset($_POST["address"])) $address = $_POST["address"];
+                        if(isset($_POST["userid"])) $userid = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_ENCODED);
+                        if(isset($_POST["fname"])) $fname = filter_input(INPUT_POST, 'fname', FILTER_SANITIZE_ENCODED);
+                        if(isset($_POST["lname"])) $lname = filter_input(INPUT_POST, 'lname', FILTER_SANITIZE_ENCODED);
+                        if(isset($_POST["role"])) $roleid = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_ENCODED);
+                        if(isset($_POST["address"])) $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_ENCODED);
 
                         $query = "SELECT * FROM user WHERE user_id='$userid'";
                         $result = $db->query($query);

@@ -7,8 +7,9 @@
 
         $id; $password;
 
-        if(isset($_POST["id"])) $id = $_POST["id"];
-        if(isset($_POST["password"])) $password = $_POST["password"];
+        if(isset($_POST["id"])) $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_ENCODED);
+        if(isset($_POST["password"])) $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_ENCODED);
+        echo $id . ' ' . $password;
 
         $query = "SELECT * FROM user WHERE user_id='$id'";
         $result = $db->query($query);

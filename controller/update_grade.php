@@ -28,10 +28,10 @@
                     if($roles[$currUser->getRoleId() - 1]->getName() == "guru") {
                         $userid; $works; $mid; $final;
 
-                        if(isset($_POST["userid"])) $userid = $_POST["userid"];
-                        if(isset($_POST["works"])) $works = $_POST["works"];
-                        if(isset($_POST["mid"])) $mid = $_POST["mid"];
-                        if(isset($_POST["final"])) $final = $_POST["final"];
+                        if(isset($_POST["userid"])) $userid = filter_input(INPUT_POST, 'userid', FILTER_SANITIZE_ENCODED);
+                        if(isset($_POST["works"])) $works = filter_input(INPUT_POST, 'works', FILTER_SANITIZE_ENCODED);
+                        if(isset($_POST["mid"])) $mid = filter_input(INPUT_POST, 'mid', FILTER_SANITIZE_ENCODED);
+                        if(isset($_POST["final"])) $final = filter_input(INPUT_POST, 'final', FILTER_SANITIZE_ENCODED);
 
                         $query = "SELECT * FROM grade WHERE user_id='$userid'";
                         $result = $db->query($query);
